@@ -1,0 +1,2194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>LC Computer Science Study Hub</title>
+
+<link rel="manifest" href="manifest.json">
+
+<meta name="theme-color" content="#081421">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="LC Computer Science">
+
+<style>
+*{box-sizing:border-box}
+
+body{
+ margin:0;
+ background:#07101c;
+ color:#e9f3ff;
+ font-family:Arial,Helvetica,sans-serif;
+ line-height:1.6
+}
+
+header{
+ position:sticky;
+ top:0;
+ z-index:10;
+ background:#081421ee;
+ border-bottom:1px solid #23415d;
+ padding:15px 5%;
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ gap:15px;
+ backdrop-filter:blur(10px)
+}
+
+.logo{
+ font-size:20px;
+ font-weight:bold
+}
+
+.logo span{
+ color:#48d1ff
+}
+
+#search{
+ width:350px;
+ max-width:45vw;
+ padding:11px 14px;
+ border-radius:9px;
+ border:1px solid #31506d;
+ background:#0c1b2b;
+ color:white;
+ outline:none
+}
+
+#search:focus{
+ border-color:#48d1ff
+}
+
+main{
+ max-width:1200px;
+ margin:auto;
+ padding:35px 5%
+}
+
+.hero{
+ padding:30px;
+ border:1px solid #284760;
+ border-radius:18px;
+ background:linear-gradient(135deg,#0c1c2e,#0a1522);
+ margin-bottom:25px
+}
+
+.hero h1{
+ font-size:42px;
+ margin:0 0 10px
+}
+
+.hero p{
+ color:#a9bfd3
+}
+
+.badges{
+ display:flex;
+ flex-wrap:wrap;
+ gap:8px;
+ margin-bottom:15px
+}
+
+.badge{
+ padding:5px 10px;
+ border:1px solid #2c5d7d;
+ border-radius:20px;
+ background:#0c2639;
+ color:#aee3ff;
+ font-size:13px
+}
+
+.grid{
+ display:grid;
+ grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+ gap:16px
+}
+
+.card{
+ padding:20px;
+ background:#0c1928;
+ border:1px solid #24415b;
+ border-radius:14px;
+ cursor:pointer;
+ transition:.2s
+}
+
+.card:hover{
+ transform:translateY(-3px);
+ border-color:#48d1ff;
+ box-shadow:0 8px 25px #0005
+}
+
+.card h2{
+ font-size:19px;
+ margin:0 0 7px
+}
+
+.card p{
+ color:#9db4c9;
+ margin:0
+}
+
+.progress{
+ height:6px;
+ background:#162b40;
+ border-radius:10px;
+ margin-top:15px;
+ overflow:hidden
+}
+
+.progress i{
+ display:block;
+ height:100%;
+ width:0;
+ background:linear-gradient(90deg,#48d1ff,#817cff);
+ transition:.4s
+}
+
+.page{
+ display:none
+}
+
+.page.active{
+ display:block
+}
+
+.back{
+ padding:9px 14px;
+ background:#102438;
+ color:#dceeff;
+ border:1px solid #2b4d69;
+ border-radius:8px;
+ cursor:pointer;
+ margin-bottom:20px
+}
+
+.back:hover{
+ border-color:#48d1ff
+}
+
+.topic{
+ margin:14px 0;
+ border:1px solid #24415b;
+ border-radius:12px;
+ background:#0c1928;
+ overflow:hidden
+}
+
+.topic>button{
+ width:100%;
+ text-align:left;
+ border:0;
+ background:none;
+ color:#edf7ff;
+ padding:17px 20px;
+ font-size:16px;
+ font-weight:bold;
+ cursor:pointer
+}
+
+.topic>button:hover{
+ background:#102235
+}
+
+.content{
+ display:none;
+ border-top:1px solid #24415b;
+ padding:18px 20px
+}
+
+.topic.open .content{
+ display:block
+}
+
+.content h3{
+ color:#62c8ff;
+ margin-top:18px
+}
+
+.content h4{
+ color:#b9dcf3
+}
+
+.content li{
+ margin-bottom:5px
+}
+
+.formula{
+ background:#06111d;
+ border:1px solid #28506d;
+ padding:13px;
+ border-radius:8px;
+ font-family:Consolas,monospace;
+ color:#cceeff;
+ margin:12px 0
+}
+
+.example{
+ border-left:4px solid #52d69e;
+ background:#0a211b;
+ padding:12px 15px;
+ margin:15px 0
+}
+
+.warning{
+ border-left:4px solid #ffc857;
+ background:#241e0b;
+ padding:12px 15px;
+ margin:15px 0
+}
+
+.diagram{
+ white-space:pre-wrap;
+ font-family:Consolas,monospace;
+ background:#050c14;
+ border:1px solid #29465f;
+ padding:15px;
+ border-radius:8px;
+ overflow:auto;
+ color:#cdeaff;
+ margin:15px 0
+}
+
+.code{
+ background:#050c14;
+ border:1px solid #29465f;
+ padding:15px;
+ border-radius:8px;
+ font-family:Consolas,monospace;
+ white-space:pre-wrap;
+ overflow:auto;
+ color:#cdeaff;
+ margin:15px 0
+}
+
+.quiz{
+ margin-top:15px;
+ padding:15px;
+ background:#091625;
+ border:1px solid #28445d;
+ border-radius:9px
+}
+
+.quiz button,
+.complete{
+ padding:8px 12px;
+ background:#12324b;
+ color:white;
+ border:1px solid #326486;
+ border-radius:7px;
+ cursor:pointer
+}
+
+.quiz button:hover,
+.complete:hover{
+ background:#174361
+}
+
+.answer{
+ display:none;
+ color:#9ff0c5;
+ margin-top:10px
+}
+
+.small{
+ color:#91a9bd;
+ font-size:13px
+}
+
+.noResults{
+ padding:25px;
+ background:#0c1928;
+ border:1px solid #24415b;
+ border-radius:12px;
+ color:#9db4c9
+}
+
+footer{
+ text-align:center;
+ color:#7e96ab;
+ padding:35px
+}
+
+@media(max-width:700px){
+
+ header{
+  flex-direction:column;
+  align-items:stretch
+ }
+
+ #search{
+  max-width:none;
+  width:100%
+ }
+
+ .hero h1{
+  font-size:30px
+ }
+
+ main{
+  padding:20px 4%
+ }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+
+<div class="logo">
+ LC <span>COMPUTER SCIENCE</span> · 5TH–6TH YEAR
+</div>
+
+<input
+ id="search"
+ type="search"
+ placeholder="Search computer science..."
+ autocomplete="off"
+>
+
+</header>
+
+
+<main>
+
+<section id="home" class="page active">
+
+<div class="hero">
+
+<div class="badges">
+
+<span class="badge">Leaving Certificate</span>
+<span class="badge">Computer Science</span>
+<span class="badge">5th & 6th Year</span>
+<span class="badge">Higher + Ordinary</span>
+
+</div>
+
+<h1>Computer Science Study Hub</h1>
+
+<p>
+A detailed Leaving Certificate Computer Science study system covering
+computational thinking, programming, algorithms, data, computer
+systems, testing, databases, web development, AI and applied
+computer science.
+</p>
+
+<p class="small">
+The course is organised around Practices and Principles,
+Core Concepts, and Computer Science in Practice.
+</p>
+
+</div>
+
+<div id="cards" class="grid"></div>
+
+</section>
+
+
+<section id="course" class="page">
+
+<button class="back" onclick="home()">
+← Back to Computer Science
+</button>
+
+<div id="courseContent"></div>
+
+</section>
+
+</main>
+
+
+<footer>
+Leaving Certificate Computer Science Study Hub
+</footer>
+
+
+<script>
+
+/* =========================================================
+   COURSE CONTENT
+   ========================================================= */
+
+const courses=[
+
+/* =========================================================
+   STRAND 1
+   ========================================================= */
+
+{
+name:"1. Practices & Principles",
+
+desc:
+"Computational thinking, design, problem solving, computers and society.",
+
+topics:[
+
+{
+title:"Computational Thinking",
+
+text:`
+
+<h3>What is computational thinking?</h3>
+
+<p>
+Computational thinking is a systematic way of solving problems so
+that solutions can potentially be carried out by a computer.
+</p>
+
+<h3>The main ideas</h3>
+
+<ul>
+
+<li><b>Decomposition</b> – breaking a large problem into smaller parts.</li>
+
+<li><b>Abstraction</b> – concentrating on important information while
+ignoring unnecessary detail.</li>
+
+<li><b>Pattern recognition</b> – identifying similarities or repeated
+structures.</li>
+
+<li><b>Algorithmic thinking</b> – creating a clear sequence of steps
+to solve a problem.</li>
+
+</ul>
+
+<div class="diagram">
+
+LARGE PROBLEM
+      ↓
+DECOMPOSE
+      ↓
+SMALLER PROBLEMS
+      ↓
+FIND PATTERNS
+      ↓
+ABSTRACT
+      ↓
+DESIGN ALGORITHM
+      ↓
+IMPLEMENT
+      ↓
+TEST
+
+</div>
+
+<div class="example">
+
+<b>Example:</b>
+
+Instead of thinking "make a school app", decompose it into:
+
+<br><br>
+
+Login → Student data → Subjects → Tasks → Progress → Results
+
+</div>
+`
+},
+
+{
+title:"Problem Solving and Decomposition",
+
+text:`
+
+<h3>Decomposition</h3>
+
+<p>
+Decomposition means taking a complicated problem and dividing it into
+smaller, more manageable problems.
+</p>
+
+<h3>Why is this useful?</h3>
+
+<ul>
+
+<li>Smaller problems are easier to understand.</li>
+<li>Different parts can be developed separately.</li>
+<li>Errors are easier to locate.</li>
+<li>Different people can work on different components.</li>
+<li>The final system becomes easier to maintain.</li>
+
+</ul>
+
+<div class="example">
+
+<b>Example:</b>
+
+A game can be decomposed into:
+
+<br><br>
+
+Player movement<br>
+↓<br>
+Collision detection<br>
+↓<br>
+Enemies<br>
+↓<br>
+Scoring<br>
+↓<br>
+Levels<br>
+↓<br>
+Saving progress
+
+</div>
+
+<div class="warning">
+
+Do not confuse decomposition with abstraction.
+
+Decomposition = breaking a problem apart.
+
+Abstraction = hiding unnecessary detail.
+
+</div>
+`
+},
+
+{
+title:"Design and Development",
+
+text:`
+
+<h3>Software design process</h3>
+
+<div class="diagram">
+
+INVESTIGATE
+     ↓
+DEFINE PROBLEM
+     ↓
+PLAN
+     ↓
+DESIGN
+     ↓
+CREATE
+     ↓
+TEST
+     ↓
+EVALUATE
+     ↓
+DOCUMENT
+     ↺
+
+</div>
+
+<p>
+Software development is normally iterative. Testing may reveal that
+the design needs to change.
+</p>
+
+<h3>Stakeholders</h3>
+
+<p>
+A stakeholder is someone affected by the system or interested in its
+outcome.
+</p>
+
+<p>
+Examples include users, customers, developers, teachers, businesses
+and organisations.
+</p>
+
+<h3>User requirements</h3>
+
+<p>
+Before creating a system, developers should understand what users
+actually need the system to do.
+</p>
+`
+},
+
+{
+title:"Computers and Society",
+
+text:`
+
+<h3>Computing affects society</h3>
+
+<p>
+Computing technology has changed communication, education,
+employment, entertainment, healthcare, transport and business.
+</p>
+
+<h3>Positive effects</h3>
+
+<ul>
+
+<li>Fast communication</li>
+<li>Access to information</li>
+<li>Automation</li>
+<li>Improved accessibility</li>
+<li>Data analysis</li>
+<li>New forms of education</li>
+
+</ul>
+
+<h3>Potential negative effects</h3>
+
+<ul>
+
+<li>Privacy concerns</li>
+<li>Digital exclusion</li>
+<li>Misinformation</li>
+<li>Job displacement</li>
+<li>Over-reliance on technology</li>
+<li>Environmental impact</li>
+
+</ul>
+
+<h3>Ethics</h3>
+
+<p>
+Computer scientists must consider how technology affects people,
+society and the environment rather than focusing only on whether
+something is technically possible.
+</p>
+`
+},
+
+{
+title:"Artificial Intelligence and Machine Learning",
+
+text:`
+
+<h3>Artificial Intelligence</h3>
+
+<p>
+Artificial intelligence refers broadly to computer systems designed
+to perform tasks associated with aspects of human intelligence.
+</p>
+
+<h3>Machine learning</h3>
+
+<p>
+Machine learning allows systems to identify patterns in data and use
+those patterns to make predictions or decisions.
+</p>
+
+<div class="diagram">
+
+DATA
+ ↓
+TRAINING
+ ↓
+MODEL
+ ↓
+NEW DATA
+ ↓
+PREDICTION
+
+</div>
+
+<h3>Important considerations</h3>
+
+<ul>
+
+<li>Quality of training data</li>
+<li>Bias</li>
+<li>Accuracy</li>
+<li>Privacy</li>
+<li>Transparency</li>
+<li>Human oversight</li>
+
+</ul>
+
+<div class="warning">
+
+Machine learning does not automatically mean that a system
+"understands" something like a human does. It identifies patterns
+according to the method and data used.
+
+</div>
+`
+},
+
+{
+title:"User-Centred Design",
+
+text:`
+
+<h3>What is user-centred design?</h3>
+
+<p>
+User-centred design focuses on the needs, abilities and experiences
+of the people who will use a system.
+</p>
+
+<h3>Good user interfaces should consider</h3>
+
+<ul>
+
+<li>Clarity</li>
+<li>Consistency</li>
+<li>Accessibility</li>
+<li>Navigation</li>
+<li>Feedback</li>
+<li>Error prevention</li>
+<li>Readability</li>
+
+</ul>
+
+<h3>Universal design</h3>
+
+<p>
+Universal design aims to make products and systems usable by as
+wide a range of people as possible.
+</p>
+
+<div class="example">
+
+A website should not rely only on colour to communicate important
+information because some users may have difficulty distinguishing
+certain colours.
+
+</div>
+`
+}
+
+]
+},
+
+
+/* =========================================================
+   STRAND 2
+   ========================================================= */
+
+{
+name:"2. Core Concepts",
+
+desc:
+"Abstraction, algorithms, computer systems, data, programming and evaluation.",
+
+topics:[
+
+{
+title:"Abstraction",
+
+text:`
+
+<h3>What is abstraction?</h3>
+
+<p>
+Abstraction means removing unnecessary detail so that attention can
+be focused on the important features of a problem.
+</p>
+
+<div class="example">
+
+When using a car, a driver does not need to understand every detail
+of how the engine internally works in order to steer, accelerate and
+brake.
+
+The controls provide an abstraction of the complex system.
+
+</div>
+
+<h3>Levels of abstraction</h3>
+
+<div class="diagram">
+
+REAL WORLD
+   ↓
+MODEL
+   ↓
+DATA
+   ↓
+ALGORITHM
+   ↓
+PROGRAM
+   ↓
+MACHINE
+
+</div>
+
+<p>
+Abstraction allows complex systems to be represented in simpler ways.
+</p>
+`
+},
+
+{
+title:"Algorithms",
+
+text:`
+
+<h3>What is an algorithm?</h3>
+
+<p>
+An algorithm is a finite, ordered set of instructions used to solve
+a problem or perform a task.
+</p>
+
+<h3>Characteristics</h3>
+
+<ul>
+
+<li>Clear</li>
+<li>Ordered</li>
+<li>Finite</li>
+<li>Unambiguous</li>
+<li>Produces a result</li>
+
+</ul>
+
+<h3>Example</h3>
+
+<div class="diagram">
+
+START
+ ↓
+INPUT number
+ ↓
+Is number > 0?
+ ↓
+YES → Print "Positive"
+ ↓
+NO
+ ↓
+Is number < 0?
+ ↓
+YES → Print "Negative"
+ ↓
+NO → Print "Zero"
+ ↓
+END
+
+</div>
+
+<p>
+Algorithms can be represented using pseudocode, flowcharts or code.
+</p>
+`
+},
+
+{
+title:"Flowcharts",
+
+text:`
+
+<h3>Common flowchart symbols</h3>
+
+<div class="diagram">
+
+   ┌───────────┐
+   │   START   │
+   └─────┬─────┘
+         ↓
+   ┌───────────┐
+   │  PROCESS  │
+   └─────┬─────┘
+         ↓
+     ◇ DECISION ◇
+       ↙       ↘
+     YES        NO
+      ↓          ↓
+   ACTION      ACTION
+
+</div>
+
+<h3>Typical symbols</h3>
+
+<ul>
+
+<li>Oval → start/end</li>
+<li>Rectangle → process</li>
+<li>Diamond → decision</li>
+<li>Parallelogram → input/output</li>
+<li>Arrow → direction of flow</li>
+
+</ul>
+
+<div class="warning">
+
+A decision normally has different possible paths, such as YES/NO
+or TRUE/FALSE.
+
+</div>
+`
+},
+
+{
+title:"Python Variables and Data Types",
+
+text:`
+
+<h3>Variables</h3>
+
+<p>
+A variable is a named location used to store a value.
+</p>
+
+<div class="code">
+
+name = "Alex"
+age = 17
+height = 1.82
+student = True
+
+</div>
+
+<h3>Common data types</h3>
+
+<ul>
+
+<li><b>int</b> – whole number</li>
+<li><b>float</b> – decimal number</li>
+<li><b>str</b> – text</li>
+<li><b>bool</b> – True or False</li>
+
+</ul>
+
+<h3>Input</h3>
+
+<div class="code">
+
+name = input("Enter your name: ")
+
+</div>
+
+<h3>Converting input</h3>
+
+<div class="code">
+
+age = int(input("Enter age: "))
+
+height = float(input("Enter height: "))
+
+</div>
+
+<div class="warning">
+
+input() normally returns text. Convert it to int or float when
+you need to perform numerical calculations.
+
+</div>
+`
+},
+
+{
+title:"Selection: IF Statements",
+
+text:`
+
+<h3>Selection</h3>
+
+<p>
+Selection allows a program to choose between different paths.
+</p>
+
+<div class="code">
+
+age = 18
+
+if age >= 18:
+    print("Adult")
+else:
+    print("Under 18")
+
+</div>
+
+<h3>Comparison operators</h3>
+
+<div class="formula">
+
+==   equal to
+!=   not equal
+>    greater than
+<    less than
+>=   greater than or equal
+<=   less than or equal
+
+</div>
+
+<h3>Multiple conditions</h3>
+
+<div class="code">
+
+mark = 72
+
+if mark >= 80:
+    grade = "H1"
+elif mark >= 70:
+    grade = "H2"
+else:
+    grade = "Other"
+
+</div>
+`
+},
+
+{
+title:"Iteration: Loops",
+
+text:`
+
+<h3>Why use loops?</h3>
+
+<p>
+Iteration repeats instructions without requiring the programmer to
+write the same code repeatedly.
+</p>
+
+<h3>FOR loop</h3>
+
+<div class="code">
+
+for i in range(5):
+    print(i)
+
+</div>
+
+<p>
+This produces:
+
+</p>
+
+<div class="formula">
+
+0
+1
+2
+3
+4
+
+</div>
+
+<h3>WHILE loop</h3>
+
+<div class="code">
+
+x = 0
+
+while x < 5:
+    print(x)
+    x += 1
+
+</div>
+
+<div class="warning">
+
+A while loop must eventually become false. Otherwise the program may
+continue indefinitely.
+
+</div>
+`
+},
+
+{
+title:"Functions",
+
+text:`
+
+<h3>What is a function?</h3>
+
+<p>
+A function is a reusable block of code that performs a particular task.
+</p>
+
+<div class="code">
+
+def add(a,b):
+    return a+b
+
+answer = add(5,3)
+
+print(answer)
+
+</div>
+
+<p>
+Here:
+
+</p>
+
+<ul>
+
+<li>add is the function name.</li>
+<li>a and b are parameters.</li>
+<li>return sends a value back.</li>
+
+</ul>
+
+<h3>Why use functions?</h3>
+
+<ul>
+
+<li>Reduce repetition</li>
+<li>Improve organisation</li>
+<li>Make programs easier to test</li>
+<li>Make code easier to understand</li>
+<li>Allow reuse</li>
+
+</ul>
+`
+},
+
+{
+title:"Lists and Data Structures",
+
+text:`
+
+<h3>Lists</h3>
+
+<p>
+A Python list stores multiple values in a single structure.
+</p>
+
+<div class="code">
+
+marks = [65,72,81,54,90]
+
+print(marks[0])
+
+</div>
+
+<p>
+Python uses zero-based indexing, so the first element is at index 0.
+</p>
+
+<div class="formula">
+
+marks[0] → first item
+marks[1] → second item
+marks[2] → third item
+
+</div>
+
+<h3>Useful operations</h3>
+
+<div class="code">
+
+marks.append(75)
+
+len(marks)
+
+sum(marks)
+
+</div>
+
+<div class="warning">
+
+Indexing is a common source of errors. The first index is 0,
+not 1.
+
+</div>
+`
+},
+
+{
+title:"Searching and Sorting",
+
+text:`
+
+<h3>Searching</h3>
+
+<p>
+Searching means looking through data to find a required value.
+</p>
+
+<h3>Linear search</h3>
+
+<p>
+A linear search checks elements one at a time until the target is
+found or the data ends.
+</p>
+
+<div class="code">
+
+numbers = [4,8,2,9,5]
+
+target = 9
+
+for number in numbers:
+    if number == target:
+        print("Found")
+
+</div>
+
+<h3>Sorting</h3>
+
+<p>
+Sorting arranges data into a particular order, such as ascending
+or descending.
+</p>
+
+<div class="code">
+
+numbers = [5,2,8,1,3]
+
+numbers.sort()
+
+print(numbers)
+
+</div>
+`
+},
+
+{
+title:"Computer Systems",
+
+text:`
+
+<h3>Hardware and software</h3>
+
+<p>
+Hardware refers to physical components. Software consists of
+instructions and programs.
+</p>
+
+<h3>Important hardware</h3>
+
+<ul>
+
+<li>CPU</li>
+<li>RAM</li>
+<li>Storage</li>
+<li>Input devices</li>
+<li>Output devices</li>
+<li>Motherboard</li>
+<li>Network hardware</li>
+
+</ul>
+
+<h3>CPU</h3>
+
+<p>
+The CPU executes instructions. It contains components such as the
+control unit, registers and arithmetic/logic circuitry.
+</p>
+
+<div class="diagram">
+
+INPUT
+  ↓
+MEMORY
+  ↓
+CPU
+ ┌─────────────┐
+ │ FETCH       │
+ │ DECODE      │
+ │ EXECUTE     │
+ └─────────────┘
+  ↓
+OUTPUT
+
+</div>
+
+<h3>RAM vs storage</h3>
+
+<p>
+RAM is temporary working memory used while programs are running.
+Storage such as an SSD retains data when power is removed.
+</p>
+`
+},
+
+{
+title:"Data Representation",
+
+text:`
+
+<h3>Binary</h3>
+
+<p>
+Computers represent information using binary digits, or bits.
+A bit can have the value 0 or 1.
+</p>
+
+<h3>Binary place values</h3>
+
+<div class="formula">
+
+128  64  32  16  8  4  2  1
+
+</div>
+
+<div class="example">
+
+<b>Convert 13 to binary:</b>
+
+<br><br>
+
+13 = 8 + 4 + 1
+
+<br><br>
+
+Therefore:
+
+<br>
+
+8 4 2 1
+
+<br>
+
+1 1 0 1
+
+<br><br>
+
+<b>13 = 1101₂</b>
+
+</div>
+
+<h3>Units</h3>
+
+<div class="formula">
+
+8 bits = 1 byte
+
+1024 bytes ≈ 1 KB
+
+1024 KB ≈ 1 MB
+
+1024 MB ≈ 1 GB
+
+</div>
+`
+},
+
+{
+title:"Evaluation and Testing",
+
+text:`
+
+<h3>Why test?</h3>
+
+<p>
+Testing checks whether a system behaves as intended and helps identify
+errors.
+</p>
+
+<h3>Common test types</h3>
+
+<ul>
+
+<li><b>Normal data:</b> valid data expected during ordinary use.</li>
+
+<li><b>Boundary data:</b> values at the edge of an acceptable range.</li>
+
+<li><b>Invalid data:</b> data that should be rejected.</li>
+
+</ul>
+
+<div class="example">
+
+If a program accepts marks from 0 to 100:
+
+<br><br>
+
+Normal → 65
+
+<br>
+
+Boundary → 0 and 100
+
+<br>
+
+Invalid → -1 and 101
+
+</div>
+
+<h3>Debugging</h3>
+
+<p>
+Debugging is the process of finding and correcting errors in a
+program.
+</p>
+
+<div class="warning">
+
+Testing is not only about proving that a program works. Good testing
+also tries to find situations where it fails.
+
+</div>
+`
+}
+
+]
+},
+
+
+/* =========================================================
+   STRAND 3
+   ========================================================= */
+
+{
+name:"3. Computer Science in Practice",
+
+desc:
+"Interactive information systems, analytics, modelling, simulation and embedded systems.",
+
+topics:[
+
+{
+title:"Interactive Information Systems",
+
+text:`
+
+<h3>What is an information system?</h3>
+
+<p>
+An information system collects, stores, processes and presents
+information to users.
+</p>
+
+<div class="diagram">
+
+USER
+ ↓
+WEB INTERFACE
+ ↓
+APPLICATION
+ ↓
+DATABASE
+ ↓
+DATA
+
+</div>
+
+<h3>User requirements</h3>
+
+<p>
+Before developing an information system, identify what users need
+to accomplish.
+</p>
+
+<h3>Example</h3>
+
+<p>
+A school information system could allow students to view subjects,
+assignments, attendance and results.
+</p>
+`
+},
+
+{
+title:"Web Development",
+
+text:`
+
+<h3>Basic web technologies</h3>
+
+<ul>
+
+<li><b>HTML</b> – structure</li>
+<li><b>CSS</b> – presentation</li>
+<li><b>JavaScript</b> – behaviour and interaction</li>
+
+</ul>
+
+<div class="code">
+
+<h1>Hello</h1>
+
+<p>This is a webpage.</p>
+
+</div>
+
+<h3>Interactive pages</h3>
+
+<p>
+JavaScript can respond to user actions and change the content or
+behaviour of a webpage.
+</p>
+
+<div class="code">
+
+button.addEventListener("click", function(){
+    alert("Hello!");
+});
+
+</div>
+`
+},
+
+{
+title:"Databases",
+
+text:`
+
+<h3>What is a database?</h3>
+
+<p>
+A database is an organised collection of data that can be stored,
+searched and updated.
+</p>
+
+<h3>Relational databases</h3>
+
+<p>
+Relational databases organise information into tables containing
+rows and columns.
+</p>
+
+<div class="diagram">
+
+STUDENT
+
+ID | NAME | AGE
+---|------|----
+1  | Alex | 17
+2  | Sam  | 18
+
+</div>
+
+<h3>Primary key</h3>
+
+<p>
+A primary key uniquely identifies a record in a table.
+</p>
+
+<h3>Relationships</h3>
+
+<p>
+Tables can be related using keys, allowing information to be
+organised without unnecessary duplication.
+</p>
+`
+},
+
+{
+title:"Analytics",
+
+text:`
+
+<h3>What is analytics?</h3>
+
+<p>
+Analytics involves examining data to identify patterns, make
+predictions and support conclusions or decisions.
+</p>
+
+<h3>Mean</h3>
+
+<div class="formula">
+
+Mean = Sum of values / Number of values
+
+</div>
+
+<div class="example">
+
+Data:
+
+<br>
+
+10, 20, 30
+
+<br><br>
+
+Mean = (10 + 20 + 30) / 3
+
+<br>
+
+<b>Mean = 20</b>
+
+</div>
+
+<h3>Median</h3>
+
+<p>
+The median is the middle value when data is arranged in order.
+</p>
+
+<h3>Mode</h3>
+
+<p>
+The mode is the value occurring most frequently.
+</p>
+
+<div class="warning">
+
+Always consider whether the data is reliable before drawing conclusions
+from it.
+
+</div>
+`
+},
+
+{
+title:"Modelling and Simulation",
+
+text:`
+
+<h3>What is a model?</h3>
+
+<p>
+A model is a simplified representation of a real system.
+</p>
+
+<h3>Simulation</h3>
+
+<p>
+A simulation uses a model to imitate the behaviour of a system under
+different conditions.
+</p>
+
+<div class="diagram">
+
+REAL SYSTEM
+     ↓
+ABSTRACTION
+     ↓
+MODEL
+     ↓
+SIMULATION
+     ↓
+RESULTS
+     ↓
+ANALYSIS
+
+</div>
+
+<h3>Why simulate?</h3>
+
+<ul>
+
+<li>Reduce cost</li>
+<li>Reduce risk</li>
+<li>Test many scenarios</li>
+<li>Investigate systems that are difficult to experiment on directly</li>
+
+</ul>
+
+<div class="example">
+
+A traffic simulation could investigate how changing traffic-light
+timings affects congestion.
+
+</div>
+`
+},
+
+{
+title:"Embedded Systems",
+
+text:`
+
+<h3>What is an embedded system?</h3>
+
+<p>
+An embedded system is a computer system designed to perform a
+specific function as part of a larger device.
+</p>
+
+<h3>Examples</h3>
+
+<ul>
+
+<li>Washing machines</li>
+<li>Smart thermostats</li>
+<li>Traffic lights</li>
+<li>Robotic systems</li>
+<li>Vehicle control systems</li>
+<li>Smart sensors</li>
+
+</ul>
+
+<div class="diagram">
+
+SENSOR
+  ↓
+MICROCONTROLLER
+  ↓
+PROGRAM
+  ↓
+ACTUATOR
+  ↓
+PHYSICAL SYSTEM
+
+</div>
+
+<p>
+Embedded systems often interact directly with the physical world
+through sensors and actuators.
+</p>
+`
+},
+
+{
+title:"Applied Learning and the Design Process",
+
+text:`
+
+<h3>Computational artefacts</h3>
+
+<p>
+A computational artefact is something created using a computer.
+Examples include programs, websites, games, simulations, apps,
+visualisations and robotic systems.
+</p>
+
+<h3>Development cycle</h3>
+
+<div class="diagram">
+
+INVESTIGATE
+     ↓
+PLAN
+     ↓
+DESIGN
+     ↓
+CREATE
+     ↓
+TEST
+     ↓
+EVALUATE
+     ↓
+DOCUMENT
+     ↺
+
+</div>
+
+<h3>Documentation</h3>
+
+<p>
+A good project should explain what was created, why particular
+decisions were made, how the system was developed and how it was
+tested and evaluated.
+</p>
+
+<div class="warning">
+
+Do not treat the project as simply "writing code". The design,
+problem-solving, testing and evaluation processes are also important.
+
+</div>
+`
+}
+
+]
+}
+
+];
+
+
+/* =========================================================
+   APP FUNCTIONS
+   ========================================================= */
+
+const cards=document.getElementById("cards");
+const homePage=document.getElementById("home");
+const coursePage=document.getElementById("course");
+const courseContent=document.getElementById("courseContent");
+
+
+function buildCards(){
+
+ cards.innerHTML="";
+
+ courses.forEach((course,index)=>{
+
+  const card=document.createElement("div");
+
+  card.className="card";
+
+  card.innerHTML=`
+
+   <h2>${course.name}</h2>
+
+   <p>${course.desc}</p>
+
+   <div class="progress">
+    <i id="progress-${index}"></i>
+   </div>
+
+   <p class="small">
+   ${course.topics.length} detailed topics
+   </p>
+
+  `;
+
+  card.addEventListener("click",()=>{
+   openCourse(index);
+  });
+
+  cards.appendChild(card);
+
+ });
+
+}
+
+
+function openCourse(index){
+
+ const course=courses[index];
+
+ homePage.classList.remove("active");
+ coursePage.classList.add("active");
+
+ courseContent.innerHTML=`
+
+ <h1>${course.name}</h1>
+
+ <p class="small">
+ ${course.desc}
+ </p>
+
+ `;
+
+
+ course.topics.forEach((topic,topicIndex)=>{
+
+  const box=document.createElement("div");
+
+  box.className="topic";
+
+  box.innerHTML=`
+
+   <button class="topicButton">
+
+   ${topicIndex+1}. ${topic.title}
+
+   <span style="float:right">+</span>
+
+   </button>
+
+   <div class="content">
+
+   ${topic.text}
+
+   <div class="quiz">
+
+   <b>Quick Check</b>
+
+   <p>
+   What is the most important idea you should remember
+   from this topic?
+   </p>
+
+   <button class="answerButton">
+   Show answer
+   </button>
+
+   <div class="answer">
+   Understand the main concept, know the important terminology
+   and be able to apply it to a computational problem.
+   </div>
+
+   </div>
+
+   <br>
+
+   <button class="complete">
+   Mark topic complete
+   </button>
+
+   </div>
+
+  `;
+
+
+  const topicButton=
+   box.querySelector(".topicButton");
+
+
+  topicButton.addEventListener("click",()=>{
+
+   box.classList.toggle("open");
+
+   topicButton.querySelector("span").textContent=
+    box.classList.contains("open")
+    ? "−"
+    : "+";
+
+  });
+
+
+  const answerButton=
+   box.querySelector(".answerButton");
+
+
+  answerButton.addEventListener("click",()=>{
+
+   const answer=
+    box.querySelector(".answer");
+
+   answer.style.display=
+    answer.style.display==="block"
+    ? "none"
+    : "block";
+
+   answerButton.textContent=
+    answer.style.display==="block"
+    ? "Hide answer"
+    : "Show answer";
+
+  });
+
+
+  const complete=
+   box.querySelector(".complete");
+
+  const storageKey=
+   "cs-"+index+"-"+topicIndex;
+
+
+  if(localStorage.getItem(storageKey)){
+
+   complete.textContent="✓ Completed";
+   complete.style.color="#7ff0b6";
+
+  }
+
+
+  complete.addEventListener("click",()=>{
+
+   localStorage.setItem(storageKey,"done");
+
+   complete.textContent="✓ Completed";
+   complete.style.color="#7ff0b6";
+
+   updateProgress();
+
+  });
+
+
+  courseContent.appendChild(box);
+
+ });
+
+}
+
+
+function home(){
+
+ coursePage.classList.remove("active");
+
+ homePage.classList.add("active");
+
+ document.getElementById("search").value="";
+
+ buildCards();
+ updateProgress();
+
+ window.scrollTo({
+  top:0,
+  behavior:"smooth"
+ });
+
+}
+
+
+/* =========================================================
+   PROGRESS
+   ========================================================= */
+
+function updateProgress(){
+
+ courses.forEach((course,index)=>{
+
+  let completed=0;
+
+  course.topics.forEach((topic,topicIndex)=>{
+
+   if(
+    localStorage.getItem(
+     "cs-"+index+"-"+topicIndex
+    )
+   ){
+    completed++;
+   }
+
+  });
+
+  const percentage=
+   completed/course.topics.length*100;
+
+  const bar=
+   document.getElementById("progress-"+index);
+
+  if(bar){
+   bar.style.width=percentage+"%";
+  }
+
+ });
+
+}
+
+
+/* =========================================================
+   SEARCH
+   ========================================================= */
+
+document
+.getElementById("search")
+.addEventListener("input",function(){
+
+ const query=this.value.toLowerCase().trim();
+
+ if(!query){
+
+  buildCards();
+  updateProgress();
+
+  return;
+
+ }
+
+
+ const results=[];
+
+
+ courses.forEach((course,courseIndex)=>{
+
+  course.topics.forEach((topic,topicIndex)=>{
+
+   const text=(
+    course.name+" "+
+    course.desc+" "+
+    topic.title+" "+
+    topic.text
+   )
+   .replace(/<[^>]*>/g," ")
+   .toLowerCase();
+
+
+   if(text.includes(query)){
+
+    results.push({
+
+     course:courseIndex,
+     topic:topicIndex,
+     title:topic.title,
+     courseName:course.name
+
+    });
+
+   }
+
+  });
+
+ });
+
+
+ cards.innerHTML="";
+
+
+ if(results.length===0){
+
+  cards.innerHTML=`
+
+  <div class="noResults">
+
+  <h2>No results found</h2>
+
+  <p>
+  Try searching for:
+  <b>Python</b>,
+  <b>algorithms</b>,
+  <b>binary</b>,
+  <b>databases</b>,
+  <b>AI</b>,
+  <b>loops</b>,
+  <b>testing</b>
+  or
+  <b>abstraction</b>.
+  </p>
+
+  </div>
+
+  `;
+
+  return;
+
+ }
+
+
+ results.forEach(result=>{
+
+  const card=document.createElement("div");
+
+  card.className="card";
+
+  card.innerHTML=`
+
+  <h2>${result.title}</h2>
+
+  <p>${result.courseName}</p>
+
+  <p class="small">
+  Click to open this topic
+  </p>
+
+  `;
+
+
+  card.addEventListener("click",()=>{
+
+   openCourse(result.course);
+
+   setTimeout(()=>{
+
+    const topics=
+     document.querySelectorAll(".topic");
+
+    if(topics[result.topic]){
+
+     topics[result.topic].classList.add("open");
+
+     topics[result.topic]
+      .scrollIntoView({
+       behavior:"smooth",
+       block:"start"
+      });
+
+    }
+
+   },50);
+
+  });
+
+
+  cards.appendChild(card);
+
+ });
+
+});
+
+
+/* =========================================================
+   SERVICE WORKER
+   ========================================================= */
+
+if("serviceWorker" in navigator){
+
+ window.addEventListener("load",()=>{
+
+  navigator.serviceWorker
+   .register("./sw.js")
+
+   .then(()=>{
+    console.log(
+     "LC Computer Science Service Worker registered"
+    );
+   })
+
+   .catch(error=>{
+    console.error(
+     "Service Worker registration failed:",
+     error
+    );
+   });
+
+ });
+
+}
+
+
+/* =========================================================
+   START
+   ========================================================= */
+
+buildCards();
+updateProgress();
+
+</script>
+
+</body>
+</html>

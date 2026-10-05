@@ -1,0 +1,17 @@
+{
+  "name": "Leaving Certificate Computer Science",
+  "short_name": "LC Computer Science",
+  "description": "A detailed Leaving Certificate Computer Science study app covering Practices and Principles, Core Concepts, and Computer Science in Practice.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#07111f",
+  "theme_color": "#0b6cff",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
